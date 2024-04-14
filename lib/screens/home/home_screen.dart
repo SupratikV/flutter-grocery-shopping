@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                                           product: demo_products[index],
                                           onProductAdd: () {
                                             controller.addProductToCart(
-                                                demo_products[index]);
+                                                demo_products[index],demo_products[index].quantity);
                                           },
                                         ),
                                       ),

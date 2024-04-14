@@ -1,3 +1,4 @@
+
 import 'package:animation_2/components/fav_btn.dart';
 import 'package:animation_2/components/price.dart';
 import 'package:animation_2/constants.dart';
@@ -7,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:animation_2/controllers/home_controller.dart'; // Import your HomeController
 
 import 'components/cart_counter.dart';
+
+
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen(
@@ -87,18 +90,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
           SizedBox(height: defaultPadding * 1.5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Text(
-                    widget.product.title!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
+                Text(
+                  widget.product.title!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
-                Price(amount: "20.00"),
+                Price(amount: "${widget.product.prices[widget.product.size]}"),
+                SizedBox(height: defaultPadding),
+                DropdownButton<ProductSize>(
+                  value: widget.product.size,
+                  onChanged: (ProductSize? newSize) {
+                    setState(() {
+                      widget.product.size = newSize!;
+                    });
+                  },
+                  items: ProductSize.values.map((ProductSize size) {
+                    return DropdownMenuItem<ProductSize>(
+                      value: size,
+                      child: Text(size.toString().split('.').last),
+                    );
+                  }).toList(),
+                ),
               ],
             ),
           ),

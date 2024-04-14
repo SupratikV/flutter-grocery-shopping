@@ -1,23 +1,17 @@
-// class Product {
-//   final String? title, image;
 
-//   Product({this.title, this.image});
-// }
-
-// List<Product> demo_products = [
-//   Product(title: "Dairy Milk", image: "assets/images/img_1.png"),
-//   Product(title: "KitKat", image: "assets/images/img_2.png"),
-//   Product(title: "5Star", image: "assets/images/img_3.png"),
-//   Product(title: "Munch", image: "assets/images/img_4.png"),
-//   Product(title: "Perk", image: "assets/images/img_5.png"),
-// ];
+enum ProductSize { small, medium, large }
 
 class Product {
   final String? title, image;
-  final double price;
+  final Map<ProductSize, double> prices; // Map each size to a price
   int quantity;
+  ProductSize size; // Add this line
 
-  Product({this.title, this.image,this.price=20.0, this.quantity = 1});
+  Product({this.title, this.image, this.prices=const {
+      ProductSize.small: 10.0,
+      ProductSize.medium: 20.0,
+      ProductSize.large: 30.0,
+    }, this.quantity = 1, this.size = ProductSize.medium}); // Add size parameter
 
   void increment() {
     quantity++;
@@ -28,12 +22,43 @@ class Product {
       quantity--;
     }
   }
+  double get price => prices[size]!; // Get the price for the current size
 }
 
 List<Product> demo_products = [
-  Product(title: "Dairy Milk", image: "assets/images/img_1.png",price: 20.0),
-  Product(title: "KitKat", image: "assets/images/img_2.png",price: 20.0),
-  Product(title: "5Star", image: "assets/images/img_3.png",price: 20.0),
-  Product(title: "Munch", image: "assets/images/img_4.png",price: 20.0),
-  Product(title: "Perk", image: "assets/images/img_5.png",price: 20.0),
+  Product(title: "Dairy Milk", image: "assets/images/img_1.png", 
+  prices: {
+    ProductSize.small: 10.0,
+    ProductSize.medium: 20.0,
+    ProductSize.large: 30.0,
+    },
+  size: ProductSize.small),
+  Product(title: "KitKat", image: "assets/images/img_2.png",
+  prices: {
+    ProductSize.small: 10.0,
+    ProductSize.medium: 20.0,
+    ProductSize.large: 30.0,
+    },
+  size: ProductSize.medium),
+  Product(title: "5Star", image: "assets/images/img_3.png",
+    prices: {
+    ProductSize.small: 10.0,
+    ProductSize.medium: 20.0,
+    ProductSize.large: 30.0,
+    },
+  size: ProductSize.small),
+  Product(title: "Munch", image: "assets/images/img_4.png",
+    prices: {
+    ProductSize.small: 10.0,
+    ProductSize.medium: 20.0,
+    ProductSize.large: 30.0,
+    },
+  size: ProductSize.small),
+  Product(title: "Perk", image: "assets/images/img_5.png",
+    prices: {
+    ProductSize.small: 10.0,
+    ProductSize.medium: 20.0,
+    ProductSize.large: 30.0,
+    },
+  size: ProductSize.small),
 ];

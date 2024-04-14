@@ -11,6 +11,7 @@ class CartDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double totalPrice = controller.cart.fold(0, (previousValue, item) => previousValue + item.product!.prices[item.product!.size]! * item.quantity);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +26,7 @@ class CartDetailsView extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {},
-              child: Text("Next - \$${controller.totalPrice.toStringAsFixed(2)}"),
+              child: Text("Next - ₹${totalPrice.toStringAsFixed(2)}"),
             ),
           )
         ],

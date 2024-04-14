@@ -9,16 +9,22 @@ class ProductItem {
   void increment() {
     quantity++;
   }
-  // double get totalPrice {
-  // return quantity * product.price;
-  // }
 
   void decrement() {
     quantity--;
   }
 
-  double get price => product?.price ?? 0.0; // Add this line
-  // void add() {}
+  double get price => product?.price ?? 0.0;
 
-  // void substract() {}
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ProductItem &&
+        other.product!.title == product!.title &&
+        other.product!.size == product!.size;
+  }
+
+  @override
+  int get hashCode => product!.title.hashCode ^ product!.size.hashCode;
 }

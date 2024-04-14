@@ -18,21 +18,31 @@ class HomeController extends ChangeNotifier {
   return cart.fold(0, (total, currentProduct) => total + currentProduct.price * currentProduct.quantity);
 }
 
-  void addProductToCart(Product product) {
-    for (ProductItem item in cart) {
-      if (item.product!.title == product.title) {
-        item.increment();
-        notifyListeners();
-        return;
-      }
-    }
-    cart.add(ProductItem(product: product, quantity: product.quantity));
-    notifyListeners();
-  }
+void addProductToCart(Product product, int quantity) {
+  // Create a new Product instance with the same properties
+  Product newProduct = Product(
+    title: product.title,
+    image: product.image,
+    prices: product.prices,
+    size: product.size,
+  );
 
-  void removeProductFromCart(Product product) {
   for (ProductItem item in cart) {
-    if (item.product!.title == product.title) {
+    if (item.product!.title == newProduct.title && item.product!.size == newProduct.size) {
+      for (int i = 0; i < quantity; i++) {
+        item.increment();
+      }
+      notifyListeners();
+      return;
+    }
+  }
+  cart.add(ProductItem(product: newProduct, quantity: quantity));
+  notifyListeners();
+}
+
+void removeProductFromCart(Product product) {
+  for (ProductItem item in cart) {
+    if (item.product!.title == product.title && item.product!.size == product.size) {
       item.decrement();
       if (item.quantity <= 0) {
         cart.remove(item);

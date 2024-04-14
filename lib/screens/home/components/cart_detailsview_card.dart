@@ -22,7 +22,7 @@ class CartDetailsViewCard extends StatelessWidget {
         backgroundImage: AssetImage(productItem.product!.image!),
       ),
       title: Text(
-        productItem.product!.title!,
+        "${productItem.product!.title!} (${productItem.product!.size.toString().split('.').last})",
         style: Theme.of(context)
             .textTheme
             .titleMedium!
@@ -31,7 +31,7 @@ class CartDetailsViewCard extends StatelessWidget {
       trailing: FittedBox(
         child: Row(
           children: [
-            Price(amount: "20"),
+            Price(amount: productItem.product!.prices[productItem.product!.size]!.toString()),
             Text(
               "  x ${productItem.quantity}",
               style: Theme.of(context)
